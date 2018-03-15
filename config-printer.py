@@ -57,21 +57,52 @@ htmlFileName = "mm-config-" + dt.strftime('%m%d%Y-%H%M%S') + ".html"
 Create document header
 """
 print ( "Creating HTML Document" )
-htmlOut = "<html>\n<head>\n<title>Mattermost Config as of " + dateStringHeader + "</title>\n</head>\n<body>"
+htmlOut = "<html>\n\t<head>\n\t\t<title>Mattermost Config as of " + dateStringHeader + "</title>"
+htmlOut += """
+        <style>
+            table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%; }
+            td, th { border: 1px solid #0066cc; text-align: left; padding: 8px; }
+            tr:nth-child(even) { background-color: #cce6ff; }
+        </style>
+"""
+htmlOut += "\t</head>\n\t<body>\n"
+htmlOut += "\t\t<table>\n"
+htmlOut += "\t\t\t<tr><td colspan=2 bgcolor='#000000'><font color='white'><b>Mattermost Config as of " + dateStringHeader + "</b></font></td></tr>\n"
 
+"""
+Iterate over each section in the configuration file, output a section header 
+(a table column that spans two columns and has white text)
+"""
+for section in sections:
+    htmlOut += "\t\t\t<tr><td colspan=2 bgcolor='#003366'><font color='white'>" + section + "</font></td></tr>\n"
+    
+    """
+    
+    """
+    attributeNames = []
+    for key in d[section]:
+        attributeNames.append( str(key) )
+    attributeNames.sort(key=str.lower)
+    
+    """
+    
+    """
+    for name in attributeNames:
+        htmlOut += "\t\t\t<tr><td>" + name + "</td><td>" + str ( d[section][name] ) + "</td></tr>\n"
 
-
+    
 """
 
 """
-htmlOut += "</body></html>"
+htmlOut += "\n\t\t</table>"
+htmlOut += "\n\t</body>\n</html>"
 print ( "Writing HTML Document to Disk as: " + htmlFileName )
 
 """
 Write our HTML file to disk
 """
-# fh = open(htmlFileName,"w")
-# fh.write( htmlOut )
-# fh.close()
+fh = open(htmlFileName,"w")
+fh.write( htmlOut )
+fh.close()
 
 print ( "Done!" )
