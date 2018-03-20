@@ -77,7 +77,7 @@ for section in sections:
     htmlOut += "\t\t\t<tr><td colspan=2 bgcolor='#003366'><font color='white'>" + section + "</font></td></tr>\n"
     
     """
-    
+    Create a list of the attribute names and sort
     """
     attributeNames = []
     for key in d[section]:
@@ -85,14 +85,14 @@ for section in sections:
     attributeNames.sort(key=str.lower)
     
     """
-    
+    Iterate over the attributes in the section and out a row in the table for each
     """
     for name in attributeNames:
         htmlOut += "\t\t\t<tr><td>" + name + "</td><td>" + str ( d[section][name] ) + "</td></tr>\n"
 
     
 """
-
+Complete the HTML output for the documents
 """
 htmlOut += "\n\t\t</table>"
 htmlOut += "\n\t</body>\n</html>"
